@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Post Activity</title>
+        <link>https://www.example.org/</link>
+        <description>False XML</description>
+        <atom:link href="https://www.example.org/" rel="self"></atom:link>
+        <language>en-us</language>
+        <lastBuildDate>Tue, 03 May 2016 16:32:15 +0000</lastBuildDate>
+        <item>
+            <title>中文1</title>
+            <link>https://www.example.org/1</link>
+            <description>D1</description>
+            <pubDate>Tue, 03 May 2016 06:01:09 +0000</pubDate>
+            <guid>1</guid>
+        </item>
+        <item>
+            <title>T2</title>
+            <link>https://www.example.org/2</link>
+            <description>D2</description>
+            <pubDate>Tue, 03 May 2016 06:02:09 +0000</pubDate>
+            <guid>2</guid>
+        </item>
+    </channel>
+</rss>

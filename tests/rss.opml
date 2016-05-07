@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<opml version="1.0">
+    <head>
+        <title>Fake opml</title>
+    </head>
+    <body>
+        <outline htmlUrl="https://www.google.org/" xmlUrl="./tests/rss.xml"
+        type="rss"
+        description="Activity on posts  question" text="Biostar"/>
+    </body>
+</opml>
