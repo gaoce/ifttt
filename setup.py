@@ -13,7 +13,7 @@ if __name__ == '__main__':
             'feedparser >= 5.2.1',
             'jinja2 >= 2.8'
         ],
-        packages=find_packages(exclude="tests"),
+        packages=find_packages(exclude=("tests",)),
         package_data={'ifttt': ['templates/*']},
         entry_points={
             'console_scripts': ['ifttt=ifttt:main']
