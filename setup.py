@@ -1,6 +1,10 @@
 from setuptools import setup, find_packages
+import os
 
-# TODO create config folder
+# Create config folder
+home_dir = os.path.join(os.path.expanduser('~'), '.ifttt')
+if not os.path.exists(home_dir):
+    os.mkdir(home_dir)
 
 if __name__ == '__main__':
     setup(

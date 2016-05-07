@@ -11,6 +11,7 @@ import time
 from datetime import datetime
 from functools import partial
 import logging
+import os
 
 
 class TimeStamp(object):
@@ -61,11 +62,17 @@ def get_feeds(file_path):
     we determine the type simply by extension: .txt for the former, .opml for
     the later.
 
+    :raise ValueError: file not fount
+
     :return: a list of url strings
 
     """
 
     feeds = []
+
+    if not os.path.exists(file_path):
+        raise ValueError('File ' + file_path + ' not found!')
+
     if file_path.endswith('.txt'):
         with open(file_path) as fi:
             for line in fi:
@@ -80,6 +87,8 @@ def get_feeds(file_path):
 
         for outline in outlines:
             feeds.append(outline.get('xmlUrl'))
+    else:
+        raise ValueError('Unsupported file type!')
 
     return feeds
 
