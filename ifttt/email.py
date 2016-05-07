@@ -34,4 +34,4 @@ def email_feeds(feeds, preview_only=False):
         html = template.render(entries=entries)
 
         yag.send(subject=subject, contents=['', html.encode('utf-8')],
-                 preview_only=preview_only)
+                 preview_only=preview_only, validate_email=False)
