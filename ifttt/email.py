@@ -14,7 +14,10 @@ def email_feeds(feeds, preview_only=False):
     """
 
     # Get yagmail agent
-    yag = yagmail.SMTP()
+    if preview_only:
+        yag = yagmail.SMTP(smtp_skip_login=True)
+    else:
+        yag = yagmail.SMTP()
 
     # Load template
     env = Environment(loader=PackageLoader('ifttt', 'templates'))
