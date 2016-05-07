@@ -14,14 +14,13 @@ import logging
 
 
 class TimeStamp(object):
-    """Test whether an entry is more than 1 day old
-
-    :param date: epoch time
-    :return: True (expired) or False (still fresh)
+    """ Get the current time, store it in a obj, and test whether a date is
+    too old based on that time.
     """
 
     def __init__(self, period=24*3600):
         """ Get current time
+
         :param int period: period of time in second (default to 1 day)
         If period is None, test_expire will always return False
 
@@ -138,10 +137,13 @@ def update_feeds(file_path, time_stamp=TimeStamp()):
     if num_cpu >= 2:
         num_cpu -= 1
 
+    # Set up a pool to parse the feed
+    # Note we are using ThreadPool here, otherwise logging is a bit complicated
     pool = Pool(num_cpu)
     parser = partial(parse_feed, time_stamp=time_stamp)
     feeds_parsed = pool.map(parser, feeds)
 
+    logging.info('Finish updating feeds')
     # TODO: time out
     return dict(feeds_parsed)
 

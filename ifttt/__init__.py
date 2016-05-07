@@ -13,6 +13,8 @@ logging.basicConfig(filename=os.path.join(home_dir, '.ifttt/log'),
 
 
 def main():
+    logging.info('Start ifttt session')
     file_path = os.path.join(home_dir, '.ifttt/rss.opml')
     rss_feeds = update_feeds(file_path)
     email_feeds(rss_feeds)
+    logging.info('Finish ifttt session')

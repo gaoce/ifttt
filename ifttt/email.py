@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import yagmail
 from jinja2 import Environment, PackageLoader
+import logging
 
 
 def email_feeds(feeds, preview_only=False):
@@ -12,6 +13,7 @@ def email_feeds(feeds, preview_only=False):
 
     :return: nothing
     """
+    logging.info('Start sending emails')
 
     # Get yagmail agent
     if preview_only:
@@ -33,5 +35,8 @@ def email_feeds(feeds, preview_only=False):
 
         html = template.render(entries=entries)
 
+        logging.info('Sending email for ' + feed_title)
         yag.send(subject=subject, contents=['', html.encode('utf-8')],
                  preview_only=preview_only, validate_email=False)
+
+    logging.info('Finish sending emails')
