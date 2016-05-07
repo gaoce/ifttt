@@ -1,5 +1,7 @@
 from setuptools import setup, find_packages
 
+# TODO create config folder
+
 if __name__ == '__main__':
     setup(
         name='ifttt',

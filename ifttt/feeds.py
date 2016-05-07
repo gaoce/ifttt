@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+"""Parse configuration file to get all feed subscription, currently only opml
+file is supported
+"""
+
 import feedparser
 import xml.etree.ElementTree as eT
 import multiprocessing
@@ -6,12 +10,7 @@ from multiprocessing.dummy import Pool
 import time
 from datetime import datetime
 from functools import partial
-
-"""Parse configuration file to get all feed subscription, currently only opml
-file is supported
-"""
-
-# TODO: logging
+import logging
 
 
 class TimeStamp(object):
@@ -99,6 +98,8 @@ def parse_feed(feed, time_stamp=TimeStamp()):
 
     feed_title = fd.feed.title
 
+    logging.info('Parsing ' + feed_title)
+
     entries = []
     for entry in fd.entries:
         # Get feed published date
@@ -127,6 +128,8 @@ def update_feeds(file_path, time_stamp=TimeStamp()):
 
     :return:
     """
+
+    logging.info('Start updating feeds')
     feeds = get_feeds(file_path)
 
     num_cpu = multiprocessing.cpu_count()
