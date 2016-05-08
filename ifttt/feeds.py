@@ -119,10 +119,7 @@ def parse_feed(feed, time_stamp=TimeStamp()):
         link = entry.get('link')
         desc = entry.get('description', u'No description')
 
-        # Truncate long title and description
-        if len(title) > 20:
-            title = title[:20] + u"..."
-
+        # Truncate long description
         if len(desc) > 500:
             desc = desc[:500] + u"..."
 

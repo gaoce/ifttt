@@ -31,6 +31,9 @@ def email_feeds(feeds, preview_only=False):
         if len(entries) == 0:
             continue
 
+        if len(feed_title) > 20:
+            feed_title = feed_title[:20] + u"..."
+
         subject = u'Daily Digest: {} ({})'.format(feed_title, len(entries))
 
         html = template.render(entries=entries)
