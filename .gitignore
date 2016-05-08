@@ -27,3 +27,6 @@ var/
 .installed.cfg
 *.egg
 
+# Test
+.tox/
+.cache/
