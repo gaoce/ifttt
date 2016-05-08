@@ -115,15 +115,22 @@ def parse_feed(feed, time_stamp=TimeStamp()):
         if date is None:
             date = entry.get('updated_parsed', None)
 
-        titl = entry.get('title', feed_title)
+        title = entry.get('title', feed_title)
         link = entry.get('link')
         desc = entry.get('description', u'No description')
+
+        # Truncate long title and description
+        if len(title) > 20:
+            title = title[:20] + u"..."
+
+        if len(desc) > 500:
+            desc = desc[:500] + u"..."
 
         # If feed is published
         if time_stamp.test_expire(date):
             continue
 
-        entries.append({'title': titl, 'link': link, 'desc': desc,
+        entries.append({'title': title, 'link': link, 'desc': desc,
                         'date': time.strftime("%Y-%m-%d %H:%M", date)})
     return feed_title, entries
 

@@ -39,8 +39,12 @@ class TestRss(TestCase):
              'link': u'https://www.example.org/1',
              'title': u'题目1'},
             {'date': '2016-05-03 06:02',
-             'desc': u'D2',
+             'desc': u'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim turpis sed nisi gravida viverra. Nunc finibus varius diam. Mauris mauris velit, varius vel vestibulum in, convallis ut orci. Phasellus varius iaculis dui, sed elementum sapien volutpat ac. Integer vehicula tempus magna, interdum suscipit ipsum semper vel. Quisque elementum ut sem vitae egestas. Proin sodales nulla id urna aliquet, nec sodales lacus feugiat. Donec dignissim pharetra sem ut vestibulum. Suspendisse egestas fauci...',
              'link': u'https://www.example.org/2',
-             'title': u'T2'}
+             'title': u'Lorem ipsum dolor si...'}
         ]}
         self.assertDictEqual(feeds, output)
+
+
+
+
