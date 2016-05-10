@@ -15,7 +15,8 @@ if __name__ == '__main__':
         install_requires=[
             'yagmail >= 0.5.140',
             'feedparser >= 5.2.1',
-            'jinja2 >= 2.8'
+            'jinja2 >= 2.8',
+            'six >= 1.10.0'
         ],
         packages=find_packages(exclude=("tests",)),
         package_data={'ifttt': ['templates/*']},

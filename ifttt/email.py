@@ -2,6 +2,7 @@
 import yagmail
 from jinja2 import Environment, PackageLoader
 import logging
+import six
 
 
 def email_feeds(feeds, preview_only=False):
@@ -37,9 +38,11 @@ def email_feeds(feeds, preview_only=False):
         subject = u'Daily Digest: {} ({})'.format(feed_title, len(entries))
 
         html = template.render(entries=entries)
+        if six.PY2:
+            html = html.encode('utf-8')
 
         logging.info('Sending email for ' + feed_title)
-        yag.send(subject=subject, contents=['', html.encode('utf-8')],
+        yag.send(subject=subject, contents=['', html],
                  preview_only=preview_only, validate_email=False)
 
     logging.info('Finish sending emails')
