@@ -30,6 +30,9 @@ class TestRss(TestCase):
         self.assertEqual(feed[0], u'Post Activity')
         self.assertEqual(len(feed[1]), 2)
 
+        failed_feed = parse_feed('')
+        self.assertEqual(failed_feed, (None, None))
+
     def test_update_feeds(self):
         feeds = update_feeds('./tests/rss.opml', TimeStamp(None))
 

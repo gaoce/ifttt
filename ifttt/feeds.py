@@ -12,6 +12,10 @@ from datetime import datetime
 from functools import partial
 import logging
 import os
+import socket
+
+TIMEOUT_IN_SECONDS = 120
+socket.setdefaulttimeout(TIMEOUT_IN_SECONDS)
 
 
 class TimeStamp(object):
@@ -93,20 +97,23 @@ def get_feeds(file_path):
     return feeds
 
 
-def parse_feed(feed, time_stamp=TimeStamp()):
+def parse_feed(feed_url, time_stamp=TimeStamp()):
     """
 
-    :param feed:
+    :param feed_url:
     :param TimeStamp time_stamp:
 
     :return dict: a dict mapping feed title to a list of new entries
     """
     # Get parsed feed
-    fd = feedparser.parse(feed)
+    fd = feedparser.parse(feed_url)
+
+    # Exception handling
+    if fd.bozo == 1:
+        logging.warning('Failed parsing ' + feed_url)
+        return None, None
 
     feed_title = fd.feed.title
-
-    logging.info('Parsing ' + feed_title)
 
     entries = []
     for entry in fd.entries:
@@ -114,6 +121,10 @@ def parse_feed(feed, time_stamp=TimeStamp()):
         date = entry.get('published_parsed', None)
         if date is None:
             date = entry.get('updated_parsed', None)
+
+        # Skipped if feed is expired
+        if time_stamp.test_expire(date):
+            continue
 
         title = entry.get('title', feed_title)
         link = entry.get('link')
@@ -123,12 +134,10 @@ def parse_feed(feed, time_stamp=TimeStamp()):
         if len(desc) > 500:
             desc = desc[:500] + u"..."
 
-        # If feed is published
-        if time_stamp.test_expire(date):
-            continue
-
         entries.append({'title': title, 'link': link, 'desc': desc,
                         'date': time.strftime("%Y-%m-%d %H:%M", date)})
+
+        logging.info('Parsed ' + feed_title)
     return feed_title, entries
 
 
@@ -157,8 +166,9 @@ def update_feeds(file_path, time_stamp=TimeStamp()):
     feeds_parsed = pool.map(parser, feeds)
 
     logging.info('Finish updating feeds')
-    # TODO: time out
-    return dict(feeds_parsed)
+
+    return {title: entries for title, entries in feeds_parsed
+            if title is not None}
 
 
 __all__ = ['TimeStamp', 'get_feeds', 'parse_feed', 'update_feeds']
