@@ -112,13 +112,19 @@ def parse_feed(feed_url, time_stamp=TimeStamp()):
 
     # Exception handling
     if fd.bozo == 1:
+        err = None
+
         # Return None if parsing failed or timeout
-        if isinstance(fd.bozo_exception, xml.sax.SAXException) or \
-                isinstance(fd.bozo_exception, socket.timeout):
-            logging.warning('Failed parsing ' + feed_url)
+        if isinstance(fd.bozo_exception, xml.sax.SAXException):
+            err = 'SAXException'
+        elif isinstance(fd.bozo_exception, socket.timeout):
+            err = 'Timeout'
+
+        if err is not None:
+            logging.warning(' '.join(['Failed parsing ', feed_url, err]))
             return None, None
 
-    feed_title = fd.feed.title
+    feed_title = fd.feed.get('title', feed_url)
 
     entries = []
     for entry in fd.entries:
