@@ -13,7 +13,9 @@ from functools import partial
 import logging
 import os
 import socket
+import xml
 
+# Set parsing timeout in seconds
 TIMEOUT_IN_SECONDS = 120
 socket.setdefaulttimeout(TIMEOUT_IN_SECONDS)
 
@@ -23,7 +25,7 @@ class TimeStamp(object):
     too old based on that time.
     """
 
-    def __init__(self, period=24*3600):
+    def __init__(self, period=24 * 3600):
         """ Get current time
 
         :param int period: period of time in second (default to 1 day)
@@ -109,7 +111,7 @@ def parse_feed(feed_url, time_stamp=TimeStamp()):
     fd = feedparser.parse(feed_url)
 
     # Exception handling
-    if fd.bozo == 1:
+    if fd.bozo == 1 and isinstance(fd.bozo_exception, xml.sax.SAXException):
         logging.warning('Failed parsing ' + feed_url)
         return None, None
 
