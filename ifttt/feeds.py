@@ -137,7 +137,7 @@ def parse_feed(feed_url, time_stamp=TimeStamp()):
         entries.append({'title': title, 'link': link, 'desc': desc,
                         'date': time.strftime("%Y-%m-%d %H:%M", date)})
 
-        logging.info('Parsed ' + feed_title)
+    logging.info('Parsed ' + feed_title)
     return feed_title, entries
 
 
