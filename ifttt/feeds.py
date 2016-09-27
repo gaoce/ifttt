@@ -141,6 +141,8 @@ def parse_feed(feed_url, time_stamp=TimeStamp()):
         title = entry.get('title', feed_title)
         link = entry.get('link')
         desc = entry.get('description', u'No description')
+
+        # Remove image tags
         desc = re.sub('<img.*?/>', '', desc)
 
         # Truncate long description
