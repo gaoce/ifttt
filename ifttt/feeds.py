@@ -14,6 +14,7 @@ import logging
 import os
 import socket
 import xml
+import re
 
 # Set parsing timeout in seconds
 TIMEOUT_IN_SECONDS = 120
@@ -140,6 +141,7 @@ def parse_feed(feed_url, time_stamp=TimeStamp()):
         title = entry.get('title', feed_title)
         link = entry.get('link')
         desc = entry.get('description', u'No description')
+        desc = re.sub('<img.*?/>', '', desc)
 
         # Truncate long description
         if len(desc) > 500:
