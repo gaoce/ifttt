@@ -143,7 +143,8 @@ def parse_feed(feed_url, time_stamp=TimeStamp()):
         desc = entry.get('description', u'No description')
 
         # Remove image tags, so the email is not too complex
-        desc = re.sub('<img.*?/>', '', desc)
+        desc = re.sub('<img.*?/img>', '', desc)
+        desc = re.sub('<img.*?>', '', desc)
 
         # Truncate long description
         if len(desc) > 500:
