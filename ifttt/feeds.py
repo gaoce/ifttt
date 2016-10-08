@@ -147,8 +147,8 @@ def parse_feed(feed_url, time_stamp=TimeStamp()):
         desc = re.sub('<img.*?>', '', desc)
 
         # Truncate long description
-        if len(desc) > 500:
-            desc = desc[:500] + u"..."
+        if len(desc) > 1000:
+            desc = desc[:1000] + u"..."
 
         entries.append({'title': title, 'link': link, 'desc': desc,
                         'date': time.strftime("%Y-%m-%d %H:%M", date)})
